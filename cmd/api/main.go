@@ -1,20 +1,24 @@
 package main
 
 import (
-	"net/http"
+	"github.com/julio-o-julio/stacklog-user-service/config"
+	"github.com/julio-o-julio/stacklog-user-service/internal/handler"
+)
 
-	"github.com/gin-gonic/gin"
+var (
+	logger *config.Logger
 )
 
 func main() {
+	logger = config.GetLogger("main")
 
-	server := gin.Default()
+	// Initialize configs
+	err := config.Initialize()
+	if err != nil {
+		logger.Errorf("| pkg main | Config initialization error: %v", err)
+		return
+	}
 
-	server.GET("/ping", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-
-	server.Run(":8080")
+	// Initialize handler
+	handler.Initialize()
 }
