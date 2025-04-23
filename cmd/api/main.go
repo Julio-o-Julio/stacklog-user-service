@@ -34,7 +34,7 @@ func main() {
 	// Initialize rotes
 	v1 := server.Group("/api/v1")
 	{
-		v1.GET("/user/:id", userHandler.GetUser)
+		v1.GET("/user/:id", userHandler.GetUserById)
 		v1.POST("/user", userHandler.CreateUser)
 		v1.PUT("/user", userHandler.UpdateUser)
 		v1.DELETE("/user", userHandler.DeleteUser)
